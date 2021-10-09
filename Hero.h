@@ -7,4 +7,4 @@ class Hero
 public:
 	Hero();
 };
-#endif // !HEROCLASS_H
+#endif // HEROCLASS_H
