@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Пометки">
+      <UniqueIdentifier>{49e50b6f-9455-414b-b9a0-90a210b875ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BattleGame.cpp">
@@ -29,5 +32,10 @@
     <ClInclude Include="Character.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="about_HP.txt">
+      <Filter>Пометки</Filter>
+    </Text>
   </ItemGroup>
 </Project>

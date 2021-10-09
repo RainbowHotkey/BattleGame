@@ -146,6 +146,9 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Hero.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="about_HP.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
