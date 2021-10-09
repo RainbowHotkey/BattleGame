@@ -1,65 +1,65 @@
-#include "Character.h"
-#include <string>
 #include <iostream>
+#include <string>
+#include "Character.h"
 
 using namespace std;
 
 
-character::character(string type, int hp, int b, int doge, float armor, int credits, int lvl)
+character::character(string z, int a, int b, int c, float i, int e, int f)
 {
-	setClass(type);
-	setHp(hp);
-	setStr(b);
-	setDoge(doge);
-	setArmor(armor);
-	setCredits(credits);
-	setLvl(lvl);
+    setClass(z);
+    setHp(a);
+    setStr(b);
+    setDoge(c);
+    setArmor(i);
+    setCredits(e);
+    setLevel(f);
 }
 void character::setClass(string x)
 {
-	pClass = x;
+    pClass = x;
 }
 void character::setHp(int h)
 {
-	hp = h;
+    health = h;
 }
 void character::setStr(int s)
 {
-	str = s;
+    str = s;
 }
 void character::setDoge(int d)
 {
-	doge = d;
+    dex = d;
 }
-void character::setArmor(int arm)
+void character::setArmor(float arm)
 {
-	armor = arm;
+    armor = arm;
 }
 void character::setCredits(int c)
 {
-	credits = c;
+    credits = c;
 }
-void character::setLvl(int l)
+void character::setLevel(int l)
 {
-	lvl = l;
+    level = l;
 }
-void character::addHp()
+void character::addHealth()
 {
-	hp++;
+    ++health;
 }
-void character::minHp()
+void character::minHealth()
 {
-	hp--;
+    --health;
 }
 void character::addCredits()
 {
-	credits++;
+    ++credits;
 }
 void character::minCredits()
 {
-	credits--;
+    --credits;
 }
-void character::addLvl()
+void character::addLevel()
 {
-	lvl++;
+    ++level;
 }
