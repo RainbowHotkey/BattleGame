@@ -1,0 +1,7 @@
+#pragma once
+#ifndef WEAPON_H
+#define WEAPON_H
+
+
+
+#endif
