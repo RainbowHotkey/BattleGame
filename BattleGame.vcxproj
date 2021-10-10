@@ -143,10 +143,12 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="about_HP.txt" />

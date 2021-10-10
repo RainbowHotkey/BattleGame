@@ -31,7 +31,7 @@ character chooseClass()
 {
 	int classChoosen;
 	cout << "You can be an: \n\n"
-		<< "[1] Elite Marine(default armor, dmgand doge, trpl attack) \n\n"
+		<< "[1] Elite Marine(default armor, dmg and doge, trpl attack) \n\n"
 		<< "[2] The Emperor's Shadow(-armor,+dmg,+doge,sngl attack)\n\n"
 		<< "[3] Egida Marauder(+armor, +dmg, -doge, dbl attack)\n\n";
 	cin >> classChoosen;
@@ -60,3 +60,4 @@ character chooseClass()
 		return chooseClass();
 	}
 }
+
