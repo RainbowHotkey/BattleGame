@@ -5,15 +5,15 @@
 using namespace std;
 
 
-character::character(string z, int a, int b, int c, float i, int e, int f)
+character::character(string name, int hp, int att, int dogge, float armor, int cred, int level)
 {
-    setClass(z);
-    setHp(a);
-    setStr(b);
-    setDoge(c);
-    setArmor(i);
-    setCredits(e);
-    setLevel(f);
+    setClass(name);
+    setHp(hp);
+    setStr(att);
+    setDoge(dogge);
+    setArmor(armor);
+    setCredits(cred);
+    setLevel(level);
 }
 void character::setClass(string x)
 {

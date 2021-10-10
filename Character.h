@@ -3,14 +3,14 @@
 class character
 {
 public:
-    character(std::string z, int a, int b, int c, float i, int e, int f);
+    character(std::string name, int hp, int att, int dogge, float armor, int cred, int level);
     void setClass(std::string x);
-    void setHp(int h);
-    void setStr(int s);
-    void setDoge(int d);
-    void setArmor(float arm);
-    void setCredits(int g);
-    void setLevel(int l);
+    void setHp(int hp);
+    void setStr(int att);
+    void setDoge(int dogge);
+    void setArmor(float armor);
+    void setCredits(int cred);
+    void setLevel(int level);
     void addHealth();//прибавление
     void minHealth();//вычитание
     void addCredits();
