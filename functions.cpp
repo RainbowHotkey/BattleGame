@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "weapon.h"
 #include "Character.h"
 //#include "weapon.h"
 #include <Windows.h>
@@ -61,3 +62,37 @@ character chooseClass()
 	}
 }
 
+weapon ChoosenWeapon()
+{
+	cout << "Access granted to the Dominion Forces Armory. You allowed to pick one of this weapons:\n"
+		<< "[1] Marine gauss-rifle\n\n"
+		<< "[2] ghost sniper-rifle\n\n"
+		<< "[3] marauder grenade-launcher\n\n";
+	int weaponChoice;
+	cin >> weaponChoice;
+	system("cls");
+	switch (weaponChoice)
+	{
+	case 1:
+		cout << "Hmm... Good, old gauss-rifle. Makes a tripple bullet burst, so you have a great chance to hit your enemy.";
+		return weapon("Gauss-rifle", 2);
+		break;
+	case 2:
+		cout << "Perfectly calibrated and cleande sniper rifle. Has a great accuarcy and damage, but can't fire in a burst,\n so you have only one chance";
+		return weapon("Ghost rifle", 3);
+		break;
+	case 3:
+		cout << "Old grenade launcher with new grenades... Huh! You should be careful using this thing. Double powerful blast,\n so you can hit the enemy twice! ";
+		return weapon("Marauder's launcher", 4);
+		break;
+	case 35:
+		cout << "The golden armada is here to help you!!!";
+		return weapon("Adun's spear", 20);
+	default:
+		cout << "Invalid selection.\n\n";
+		cout << "press enter to continue\n";
+		cin.get();
+		system("cls");
+		return ChoosenWeapon();
+	}
+}
