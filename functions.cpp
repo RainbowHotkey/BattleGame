@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void StartScreen()
+void Startscreen()
 {
 	cout << "***************************************************";
 	cout << "\n\t\t\t Welcome to the Coprulu Sector \n";
@@ -21,6 +21,7 @@ void StartScreen()
 	Sleep(3600);
 	system("cls");
 }
+
 void gameOver()
 {
 	cout << "\t\t\t Another brave soldier died in the Zerg swarm \n";
@@ -62,7 +63,7 @@ character chooseClass()
 	}
 }
 
-weapon ChoosenWeapon()
+weapon chooseWeapon()
 {
 	cout << "Access granted to the Dominion Forces Armory. You allowed to pick one of this weapons:\n"
 		<< "[1] Marine gauss-rifle\n\n"
@@ -93,6 +94,6 @@ weapon ChoosenWeapon()
 		cout << "press enter to continue\n";
 		cin.get();
 		system("cls");
-		return ChoosenWeapon();
+		return chooseWeapon();
 	}
 }
