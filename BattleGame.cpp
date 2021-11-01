@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 character chooseClass();
 weapon chooseWeapon();
 void startScreen();
@@ -29,11 +30,11 @@ void enter()
     system("cls");
 }
 
-void Choise(character ourHero, character zerg, weapon ourWeapon, short int combat, int experience)
+void Choise(character ourHero, character zerg, weapon ourWeapon, int experience, int newCredits)
 {
     int hit;
     int current_hp;
-    int newCredits;
+    short int combat;
 
     cout << zerg.getClass() << " crosses your path\n";
     while (zerg.getHp() > 0)
@@ -55,17 +56,15 @@ void Choise(character ourHero, character zerg, weapon ourWeapon, short int comba
                 zerg.setHp(current_hp);
                 if (1 > zerg.getHp())
                 {
-                    cout << "You killed " << zerg.getClass() << " and recieved 40cr and 30exp!\n\n"
-                        << "Please press enter...\n";
-                    newCredits = ourHero.getCredits() + 40;
-                    ourHero.setCredits(newCredits);
+                    cout << "You killed " << zerg.getClass() << " and recieved " << zerg.getCredits() 
+                        << " credits and " << zerg.getLevel() << " exp!\n\n";
                     experience += 30;
                     zerg.setHp(0);
                 }
             }
             else
             {
-                cout << "You missed";
+                cout << "You missed\n";
             }
             if (zerg.getHp() > 0)
             {
@@ -79,10 +78,13 @@ void Choise(character ourHero, character zerg, weapon ourWeapon, short int comba
                 }
                 else
                 {
-                    cout << "You have doged " << zerg.getClass();
+                    cout << "You have doged " << zerg.getClass() << "\n";
                 }
             }
-            press();
+            cin.ignore();
+            cin.get();
+            system("cls");
+            break;
         }
         case 2:
         {
@@ -110,13 +112,13 @@ void Choise(character ourHero, character zerg, weapon ourWeapon, short int comba
             press();
         }
 
+        }
         if (ourHero.getHp() < 1)
         {
-            cout << "YOU DIED";
+            cout << "\n\n\n\n\t\t\t\t\t\n\n\n\tYOU DIED";
             Sleep(1700);
             system("cls");
             break;
-        }
         }
     }
 }
@@ -125,7 +127,7 @@ void Choise(character ourHero, character zerg, weapon ourWeapon, short int comba
 
 int main()
 {
-    //startScreen();
+    //Startscreen();
     cout << "Enter name\n";
     string name;
     cin >> name;
@@ -138,8 +140,7 @@ int main()
     system("cls");
     character ourHero = chooseClass();
     press();
-    //weapon ourWeapon = chooseWeapon();
-    weapon ourWeapon("name", 30);
+    weapon ourWeapon = chooseWeapon();
     press();
 
     while (ourHero.getHp() > 0)
@@ -316,6 +317,8 @@ int main()
                 }
                 short int combat;
                 short int hit;
+                int newCredits = 0;
+                short int creds;
                 short int current_hp;
                 system("cls");
                 if (ourHero.getLevel() == 1)
@@ -324,21 +327,23 @@ int main()
                     {
                         case 1:
                         {
-                            character zerg("zergling", 40, 10, 14, 1, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            character zerg("zergling", 40, 10, 14, 1, 40, 30);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
+                            creds = ourHero.getCredits() + zerg.getCredits();
+                            ourHero.setCredits(creds);
+                            break;
                         }
                         case 2:
                         {
                             character zerg("roach", 60, 20, 8, 3, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
+                            break;
                         }
                         case 3:
                         {
-                            character zerg("Queen", 80, 40, 4, 5, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            character zerg("Queen", 80, 30, 1, 4, 0, 0);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
+                            break;
                         }
                     }
                 }
@@ -349,20 +354,17 @@ int main()
                     case 1:
                     {
                         character zerg("Roach", 60, 20, 8, 3, 0, 0);
-                        cin >> combat;
-                        Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                     }
                     case 2:
                     {
                         character zerg("Queen", 80, 40, 4, 5, 0, 0);
-                        cin >> combat;
-                        Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                     }
                     case 3:
                     {
                         character zerg("Brutalisk", 100, 45, 5, 5, 0, 0);
-                        cin >> combat;
-                        Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                     }
                     }
                 }
@@ -373,20 +375,17 @@ int main()
                         case 1:
                         {
                             character zerg("Queen", 80, 40, 4, 5, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                         }
                         case 2:
                         {
                             character zerg("Brutalisk", 100, 45, 5, 5, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                         }
                         case 3:
                         {
                             character zerg("Ultralisk", 130, 50, 1, 6, 0, 0);
-                            cin >> combat;
-                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                            Choise(ourHero, zerg, ourWeapon, experience, newCredits);
                         }
                     }
                 }
