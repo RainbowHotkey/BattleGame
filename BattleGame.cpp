@@ -29,22 +29,117 @@ void enter()
     system("cls");
 }
 
+void Choise(character ourHero, character zerg, weapon ourWeapon, short int combat, int experience)
+{
+    int hit;
+    int current_hp;
+    int newCredits;
+
+    cout << zerg.getClass() << " crosses your path\n";
+    while (zerg.getHp() > 0)
+    {
+        cout << "What will you do?\n\n"
+            << "[1] Attack\n\n"
+            << "[2] Call for evacuation";
+        cin >> combat;
+        system("cls");
+        switch (combat)
+        {
+        case 1:
+        {
+            if ((ourHero.getStr() + (rand() % 11)) > (zerg.getStr() + (rand() % 11)))
+            {
+                hit = ourHero.getStr() * (ourWeapon.getDamageMultiplier());
+                cout << "You hit " << zerg.getClass() << " for " << hit << "\n\n";
+                current_hp = zerg.getHp() - hit;
+                zerg.setHp(current_hp);
+                if (1 > zerg.getHp())
+                {
+                    cout << "You killed " << zerg.getClass() << " and recieved 40cr and 30exp!\n\n"
+                        << "Please press enter...\n";
+                    newCredits = ourHero.getCredits() + 40;
+                    ourHero.setCredits(newCredits);
+                    experience += 30;
+                    zerg.setHp(0);
+                }
+            }
+            else
+            {
+                cout << "You missed";
+            }
+            if (zerg.getHp() > 0)
+            {
+                if ((zerg.getStr() + (rand() % 11)) > (ourHero.getStr() + (rand() % 11)))
+                {
+                    hit = zerg.getStr() * 0.95;
+                    hit = hit * ourHero.getArmor();
+                    cout << zerg.getClass() << " hits you for " << hit << "\n\n";
+                    current_hp = ourHero.getHp() - hit;
+                    ourHero.setHp(current_hp);
+                }
+                else
+                {
+                    cout << "You have doged " << zerg.getClass();
+                }
+            }
+            press();
+        }
+        case 2:
+        {
+            if ((rand() % 3) < 2)
+            {
+                cout << "Medivac arrived just at the right moment\n";
+                press();
+                zerg.setHp(0);
+                break;
+            }
+            else
+            {
+                cout << "Evacuation arrived too late...\n\n";
+                Sleep(3000);
+                system("cls");
+                ourHero.setHp(0);
+                zerg.setHp(0);
+                break;
+            }
+            break;
+        }
+        default:
+        {
+            cout << "Invalid selection\n\n";
+            press();
+        }
+
+        if (ourHero.getHp() < 1)
+        {
+            cout << "YOU DIED";
+            Sleep(1700);
+            system("cls");
+            break;
+        }
+        }
+    }
+}
+
+
+
 int main()
 {
-    startScreen();
+    //startScreen();
     cout << "Enter name\n";
     string name;
     cin >> name;
     char yon;
-    int newCredits;
-    int newHealth;
-    int newStr;
-    int newDoge;
-    int experience = 0;
+    short int newCredits;
+    short int newHealth;
+    short int newStr;
+    short int newDoge;
+    short int experience = 0;
     system("cls");
     character ourHero = chooseClass();
     press();
-    weapon ourWeapon = chooseWeapon();
+    //weapon ourWeapon = chooseWeapon();
+    weapon ourWeapon("name", 30);
     press();
 
     while (ourHero.getHp() > 0)
@@ -85,227 +180,312 @@ int main()
             << "[3] Med-station\n\n"
             << "[4] Statistics\n\n"
             << "[5] Quit game\n";
-        int menuSelect;
+        short int upgrade_lvl = 0;
+        short int menuSelect;
         srand(time(0));
         cin >> menuSelect;
         system("cls");
         switch (menuSelect)
         {
-        case 1:                //weapon/armor upgrades
-        {
-            if (ourHero.getCredits() > 49)
-            {
-                ourWeapon.WeaponUpgrade1();
-                newCredits = ourHero.getCredits() - 50;
-                ourHero.setCredits(newCredits);
-                cout << "Upgrade complete!";
-                press();
-                break;
-            }
-            else
-            {
-                cout << "Not enough credits!";
-                press();
-                break;
-            }
-        }
-        default:
-        {
-            cout << "Invalid selection.\n\n";
-            press();
-        }
-
-        }
-        break;
-    }
-    case 2:  //zergs
-    {
-        int arenaChoice;
-        if (ourHero.getLevel() < 6)
-        {
-            cout << "You've entered the swarm territory:\n\n"
-                << "[1] Hatchery\n\n"
-                << "[2] Lair\n\n"
-                << "[3] Hive\n\n";
-            cin >> arenaChoice;
-        }
-        if (ourHero.getLevel() == 6)
-        {
-            cout << "After destroying most of zergs on the planet, you, " << name << " \nYou will lead the last battle\n"
-                << "Are you ready? \n[Y]yes or [N]no?";
-            cin >> yon;
-        }
-        //
-        int combatChoice;
-        int theHit;
-        int currentHealth;
-        system("cls");
-        if (ourHero.getLevel() == 1)
-            switch (arenaChoice)
-            {
             case 1:
             {
-                cout << "You've meet a zergling.\n";
-                character zergling("zergling", 45, 10, 15, .30, 0, 0);
-                while (zergling.getHp() > 0)
+                system("cls");
+                cout << "Welcome to armory!"
+                    << "You have " << ourHero.getCredits() << " credits\n\n";
+                cout << "What do you want? \n\n"
+                    << "[1] Weapon upgrade 1 - 50\n\n"
+                    << "[2] Weapon upgrade 2 - 100\n\n"
+                    << "[3] Weapon upgrade 3 - 150\n\n"
+                    << "[4] Exit";
+                short int choice;
+                cin >> choice;
+                system("cls");
+                switch (choice)
                 {
-                    cout << "What will you do?\n\n"
-                        << "[1] Attack\n\n"
-                        << "[2] try to evacuate";
-                    cin >> combatChoice;
-                    system("cls");
-                    switch (combatChoice)
-                    {
                     case 1:
                     {
-                        if ((ourHero.getStr() + (rand() % 11)) > (zergling.getDoge() + (rand() % 11)))
+                        if (upgrade_lvl == 0)
                         {
-                            theHit = ourHero.getStr() * (ourWeapon.getDamageMultiplier());
-                            cout << "You shot zergling for " << theHit << "!\n";
-                            currentHealth = zergling.getHp() - theHit;
-                            zergling.setHp(currentHealth);
-                            if (1 > zergling.getHp())
+                            if (ourHero.getCredits() > 49)
                             {
-                                cout << "You killed zergling and recieved 30 gold and 30 exp!\n\n";
-                                newCredits = ourHero.getCredits() + 30;
+                                ourWeapon.WeaponUpgrade1();
+                                newCredits = ourHero.getCredits() - 50;
                                 ourHero.setCredits(newCredits);
-                                experience += 20;
-                                zergling.setHp(0);
+                                cout << "Weapon upgrade complete!";
+                                enter();
+                                ++upgrade_lvl;
+                                break;
+                            }   
+                            else
+                            {
+                                cout << "Not enough credits";
+                                enter();
+                                break;
                             }
                         }
                         else
                         {
-                            cout << "You missed!\n\n";
+                            cout << "You almost done level 1 upgrade!";
+                            break;
                         }
-                        if (zergling.getHp() > 0)
-                        {
-                            if ((zergling.getStr() + (rand() % 11)) > (ourHero.getDoge() + (rand() % 11)))
-                            {
-                                theHit = zergling.getStr() * 0.95;
-                                theHit = theHit * ourHero.getArmor();
-                                cout << "Zergling attacked you and dealt " << theHit << "dmg!\n\n";
-                                currentHealth = ourHero.getHp() - theHit;
-                                ourHero.setHp(currentHealth);
-                            }
-                            else
-                            {
-                                cout << " You've dodged the zergling's attack!";
-                            }
-                        }
-                        enter();
-                        break;
                     }
                     case 2:
                     {
-                        if ((rand() % 3) < 2)
+                        if (upgrade_lvl == 1)
                         {
-                            cout << "The medivac ship picked you up at the last moment and saved your life!\n";
-                            press();
-                            zergling.setHp(0);
-                            break;
+                            if (ourHero.getCredits() > 99)
+                            {
+                                ourWeapon.WeaponUpgrade2();
+                                newCredits = ourHero.getCredits() - 100;
+                                ourHero.setCredits(newCredits);
+                                cout << "Weapon upgrade complete!";
+                                enter();
+                                upgrade_lvl++;
+                                break;
+                            }
+                            else
+                            {
+                                cout << "Not enough credits";
+                                enter();
+                                break;
+                            }
                         }
                         else
                         {
-                            cout << "Medivac arrived too late. This zergling kills you.";
-                            Sleep(3000);
-                            system("cls");
-                            ourHero.setHp(0);
-                            zergling.setHp(0);
+                            cout << "You almost done level 2 upgrade!";
                             break;
                         }
+                    }
+                    case 3:
+                    {
+                        if (upgrade_lvl == 2)
+                        {
+                            if (ourHero.getCredits() > 149)
+                            {
+                                ourWeapon.WeaponUpgrade3();
+                                newCredits = ourHero.getCredits() - 150;
+                                ourHero.setCredits(newCredits);
+                                cout << "Weapon upgrade complete!";
+                                enter();
+                                upgrade_lvl++;
+                                break;
+                            }
+                            else
+                            {
+                                cout << "Not enough credits";
+                                enter();
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            cout << "You almost done level 3 upgrade!";
+                            break;
+                        }
+                    }
+                    case 4:
+                    {
                         break;
                     }
                     default:
-                        cout << "Invalid selection.\n\n";
+                    {
+                        cout << "Invalid selection!\n\n";
                         press();
                     }
                 }
-                if (ourHero.getHp() < 1)
-                {
-                    cout << "You died!";
-                    Sleep(1500);
-                    system("cls");
-                    break;
-                }
+                break;
             }
             case 2:
             {
-                cout << "You've meet the Roach\n";
-                character roach("roach", 45, 15, 10, 1, 0, 0);
-                while (roach.getHp() > 0)
+                short int ArenaChoice;
+                if (ourHero.getLevel() < 6)
                 {
-                    cout << "What will you do?\n\n"
-                        << "[1] Attack\n\n"
-                        << "[2] try to evacuate\n";
-                    cin >> combatChoice;
-                    system("cls");
-                    switch (combatChoice)
+                    cout << "You have entered the zergs' locations\n"
+                        << " Choose your way:\n\n"
+                        << "[1] The Hatchery\n\n"
+                        << "[2] The Lair\n\n"
+                        << "[3] The Hive\n\n";
+                    cin >> ArenaChoice;
+                }
+                if (ourHero.getLevel() == 6)
+                {
+                    cout << "You are starting to hear a voice in your head."
+                        << "The Kerrigan is ready to accept your battle\n"
+                        << "But are you, " << name << " ready for this ? ";
+                    cin >> yon;
+                }
+                short int combat;
+                short int hit;
+                short int current_hp;
+                system("cls");
+                if (ourHero.getLevel() == 1)
+                {
+                    switch (ArenaChoice)
+                    {
+                        case 1:
+                        {
+                            character zerg("zergling", 40, 10, 14, 1, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
+                        case 2:
+                        {
+                            character zerg("roach", 60, 20, 8, 3, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
+                        case 3:
+                        {
+                            character zerg("Queen", 80, 40, 4, 5, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
+                    }
+                }
+                if (ourHero.getLevel() == 2)
+                {
+                    switch (ArenaChoice)
                     {
                     case 1:
-                        if ((ourHero.getStr() + (rand() % 11)) > (roach.getDoge() + (rand() % 11)))
-                        {
-                            theHit = ourHero.getStr() * (ourWeapon.getDamageMultiplier());
-                            cout << "You shot the roach for " << theHit << "!\n\n";
-                            currentHealth = roach.getHp() - theHit;
-                            roach.setHp(currentHealth);
-                            if (1 > roach.getHp())
-                            {
-                                cout << "You killed this roach and gained 50 credits and 40 exp!\n";
-                                newCredits = ourHero.getCredits() + 50;
-                                ourHero.setCredits(newCredits);
-                                experience += 40;
-                                roach.setHp(0);
-                            }
-                        }
-                        else
-                        {
-                            cout << " Roach has doged your shot";
-                        }
-                        if (roach.getHp() > 0)
-                        {
-                            if ((roach.getStr() + (rand() % 11)) > (ourHero.getDoge() + (rand() % 11)))
-                            {
-                                theHit = roach.getStr() * 1.5;
-                                theHit = theHit * ourHero.getArmor();
-                                cout << "Roach hits you for " << theHit << "!\n\n";
-                                currentHealth = ourHero.getHp() - theHit;
-                                ourHero.setHp(currentHealth);
-                            }
-                            else
-                            {
-                                cout << "You has dodged roach's attack";
-                            }
-                        }
-                        enter();
-                        break;
+                    {
+                        character zerg("Roach", 60, 20, 8, 3, 0, 0);
+                        cin >> combat;
+                        Choise(ourHero, zerg, ourWeapon, combat, experience);
                     }
                     case 2:
                     {
-                        if ((rand() % 3) < 2)
-                        {
-                            cout << "Medivac get your up and saves you!\n";
-                            press();
-                            roach.setHp(0);
-                            break;
-                        }
-                        else
-                        {
-                            cout << "Poor decision. The roach executes you!";
-                            Sleep(3000);
-                            system("cls");
-                            ourHero.setHp(0);
-                            roach.setHp(0);
-                            break;
-                        }
-                        break;
+                        character zerg("Queen", 80, 40, 4, 5, 0, 0);
+                        cin >> combat;
+                        Choise(ourHero, zerg, ourWeapon, combat, experience);
                     }
-
-                    default:
-                        break;
+                    case 3:
+                    {
+                        character zerg("Brutalisk", 100, 45, 5, 5, 0, 0);
+                        cin >> combat;
+                        Choise(ourHero, zerg, ourWeapon, combat, experience);
+                    }
+                    }
+                }
+                if (ourHero.getLevel() == 3)
+                {
+                    switch (ArenaChoice)
+                    {
+                        case 1:
+                        {
+                            character zerg("Queen", 80, 40, 4, 5, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
+                        case 2:
+                        {
+                            character zerg("Brutalisk", 100, 45, 5, 5, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
+                        case 3:
+                        {
+                            character zerg("Ultralisk", 130, 50, 1, 6, 0, 0);
+                            cin >> combat;
+                            Choise(ourHero, zerg, ourWeapon, combat, experience);
+                        }
                     }
                 }
             }
-            }
+        }
     }
-} 
+}
 
+                           /*while (zerg.getHp() > 0)
+                            {
+                                cout << "What will you do?\n\n"
+                                    << "[1] Attack\n\n"
+                                    << "[2] Call for evacuation";
+                                cin >> combat;
+                                system("cls");
+                                switch (combat)
+                                {
+                                    case 1:
+                                    {
+                                        if ((ourHero.getStr() + (rand() % 11)) > (zerg.getStr() + (rand() % 11)))
+                                        {
+                                            hit = ourHero.getStr() * (ourWeapon.getDamageMultiplier());
+                                            cout << "You hit zergling for " << hit << "\n\n";
+                                            current_hp = zerg.getHp() - hit;
+                                            zerg.setHp(current_hp);
+                                            if (1 > zerg.getHp())
+                                            {
+                                                cout << "You killed zergling and recieved 40cr and 30exp!\n\n"
+                                                    << "Please press enter...\n";
+                                                newCredits = ourHero.getCredits() + 40;
+                                                ourHero.setCredits(newCredits);
+                                                experience += 30;
+                                                zerg.setHp(0);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            cout << "You missed";
+                                        }
+                                        if (zerg.getHp() > 0)
+                                        {
+                                            if ((zerg.getStr() + (rand() % 11)) > (ourHero.getStr() + (rand() % 11)))
+                                            {
+                                                hit = zerg.getStr() * 0.95;
+                                                hit = hit * ourHero.getArmor();
+                                                cout << " Zergling hits you for " << hit << "\n\n";
+                                                current_hp = ourHero.getHp() - hit;
+                                                ourHero.setHp(current_hp);
+                                            }
+                                            else
+                                            {
+                                                cout << "You have doged zergling";
+                                            }
+                                        }
+                                        press();
+                                    }
+                                    case 2:
+                                    {
+                                        if ((rand() % 3) < 2)
+                                        {
+                                            cout << "Medivac arrived just at the right moment\n";
+                                            press();
+                                            zerg.setHp(0);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            cout << "Evacuation arrived too late...\n\n";
+                                            Sleep(3000);
+                                            system("cls");
+                                            ourHero.setHp(0);
+                                            zerg.setHp(0);
+                                            break;
+                                        }
+                                        break;
+                                    }
+                                    default:
+                                    {
+                                        cout << "Invalid selection\n\n";
+                                        press();
+                                    }
+
+                                    if (ourHero.getHp() < 1)
+                                    {
+                                        cout << "YOU DIED";
+                                        Sleep(1700);
+                                        system("cls");
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            cout << "The Roach runs towards you!\n";
+                            character roach("roach", 50, 15, 8, 2, 0, 0);
+                            while (roach.getHp() > 0)
+                            {
+                                cout << "What will you do?";
+                                cin >> combat;
+                            }*/
