@@ -35,7 +35,6 @@ int Choise(character ourHero, character zerg, weapon ourWeapon, int dmg = 0)
     short int combat;
     int hit;
     int current_hp;
-    short int combat;
 
     cout << zerg.getClass() << " crosses your path\n";
     while (zerg.getHp() > 0)
@@ -167,7 +166,7 @@ int main()
             cout << "You've reached max lvl!!!\n\n";
             ourHero.addLevel();
             press();
-        }*/
+        }
         cout << "Choose our way:\n\n"
             << "[1] Engeneering bay\n\n"
             << "[2] Zerg locations\n\n"
